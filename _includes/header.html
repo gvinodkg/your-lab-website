@@ -1,0 +1,33 @@
+{% assign image = page.header | default: site.header | relative_url %}
+{% assign dark = page.header-dark | is_nil: site.header-dark | is_nil: true %}
+
+
+<header
+  class="background"
+  {% if dark == true or dark == false %}
+    data-dark="{{ dark }}"
+  {% endif %}
+  {% if page.url == "/" %}
+    data-big
+  {% endif %}
+>
+
+  <input class="nav-toggle" type="checkbox" aria-label="show/hide nav">
+
+  <nav>
+    {% assign pages = site.pages
+      | where_exp: "page", "page.nav"
+      | sort: "nav.order"
+    %}
+    {% for page in pages %}
+      {% if page.nav %}
+        <a
+          href="{{ page.dir | relative_url }}"
+          data-tooltip="{{ page.nav.tooltip }}"
+        >
+          {{ Vinod }}
+        </a>
+      {% endif %}
+    {% endfor %}
+  </nav>
+</header>
